@@ -48,9 +48,10 @@
 [rebase]
 	autoStash = true
 [user]
-	email = mehdi.raddadi@polyconseil.fr
-	name = 
+	email = me.raddadi@gmail.com
+	name = Eclar
 [core]
+    editor = vi
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [color "diff-highlight"]
 	oldNormal = red bold

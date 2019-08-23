@@ -6,6 +6,7 @@
 " load plug_vim
 call plug#begin("~/.vim/plugged")
     " Esthetics
+    Plug 'pangloss/vim-javascript'
     Plug 'joshdick/onedark.vim'
     Plug 'bling/vim-airline'
     Plug 'Yggdroot/indentLine'
@@ -33,6 +34,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'Rykka/riv.vim'
     Plug 'Rykka/InstantRst'
     Plug 'cespare/vim-toml'
+    Plug 'mg979/vim-visual-multi'
 
     " Linging
     Plug 'ambv/black'
