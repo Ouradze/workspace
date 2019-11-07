@@ -32,17 +32,21 @@ font() {
     echo "Setting up fonts"
     rm -rf ~/.local/share/fonts
     mkdir -p ~/.local/share/fonts
-    curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf \
-    mv Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf ~/.local/share/fonts/
-    curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete Mono.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf \
-    mv Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ Mono.otf ~/.local/share/fonts/
+    git clone https://github.com/powerline/fonts.git --depth=1
+    # install
+    cd fonts
+    ./install.sh
+    # clean-up a bit
+    cd ..
+    rm -rf fonts
     fc-cache -f -v
+    # unizp and paste
+    # https://github.com/ryanoasis/nerd-fonts/releases/tag/v2.0.0
 }
 
 dependencies() {
     echo "Setting up system dependencies..."
-    sudo apt install 
-        tmux \
+    sudo apt install tmux \
         powerline \
         fonts-powerline \
         curl \
@@ -79,7 +83,10 @@ dependencies() {
         libzbar-dev \
         binutils \
         libproj-dev \
-        gdal-bin
+        gdal-bin \
+        zsh \
+        gnome-tweak-tool \
+        bat
     # install black for python project
     pip3 install --user black
     # Docker
@@ -96,6 +103,7 @@ dependencies() {
 }
 
 node_setup() {
+    echo "Settings up node"
     mkdir ~/.nvm
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
     nvm install 12.4
@@ -145,7 +153,8 @@ install_oh_my_zsh() {
     && git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k \
     && mkdir -p ~/.oh-my-zsh/custom/themes \
     && rm -rf ~/z.sh \
-    && curl -fLo ~/z.sh https://raw.githubusercontent.com/rupa/z/master/z.sh
+    && curl -fLo ~/z.sh https://raw.githubusercontent.com/rupa/z/master/z.sh \
+    && pip3 install virtualenv virtualenvwrapper
 }
 
 setup_tmux() {
@@ -170,9 +179,6 @@ setup_neovim() {
 
 dev_tools() {
     echo "Setting up dev tools..."
-    # bat
-    curl https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
-    sudo dpkg -i bat_0.11.0_amd64.deb
     # diff so fancy
     npm install -g diff-so-fancy
     # install poetry package manager

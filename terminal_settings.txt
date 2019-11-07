@@ -13,7 +13,7 @@ use-theme-colors=false
 background-transparency-percent=5
 background-color='#1E1E21212727'
 custom-command=''
-font='
+font='Droid Sans Mono Dotted for Powerline 12'
 use-system-font=false
 use-custom-command=false
 visible-name='One Dark'
@@ -23,7 +23,7 @@ use-theme-background=false
 use-custom-command=false
 use-system-font=true
 custom-command=''
-visible-name='Eclar'
+visible-name='Ouradze'
 
 [legacy/profiles:]
 list=['dfd8893c-00f9-444a-a7d4-bc4572d508f4']

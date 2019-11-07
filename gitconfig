@@ -37,9 +37,6 @@
 [push]
   default = upstream
 
-[url "git@github.com:Polyconseil/"]
-  insteadOf = poly:
-
 [merge]
   tool = meld
 
@@ -49,7 +46,7 @@
 	autoStash = true
 [user]
 	email = me.raddadi@gmail.com
-	name = Eclar
+	name = Ouradze
 [core]
     editor = vi
 	pager = diff-so-fancy | less --tabs=4 -RFX
