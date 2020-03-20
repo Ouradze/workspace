@@ -12,6 +12,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'Yggdroot/indentLine'
     Plug 'myusuf3/numbers.vim'
     Plug 'Vimjas/vim-python-pep8-indent'
+    Plug 'hashivim/vim-terraform'
 
     " Completion
     Plug 'docunext/closetag.vim'
@@ -36,8 +37,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'cespare/vim-toml'
     Plug 'mg979/vim-visual-multi'
 
-    " Linging
-    Plug 'ambv/black'
+    " Linting
+    Plug 'psf/black'
     Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 
     " Workflow
@@ -89,7 +90,7 @@ function! s:BaseSettings()
     set shiftwidth=4		" 4 characters for indenting
     set autoindent
     let g:black_skip_string_normalization = 1
-    "autocmd BufWritePost *.py execute ':Black'
+    autocmd BufWritePre *.py execute ':Black'
 
     """""""""
     "" look & feel
@@ -125,6 +126,9 @@ function! s:BaseSettings()
     let g:NERDTreeLimitedSyntax = 1
     let g:isort_command = 'isort'
     let g:NERDDefaultAlign = 'left'
+    let g:terraform_align=1
+    let g:terraform_fmt_on_save=1
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 endfunction
 function! s:Colorscheme()
     " One dark theme

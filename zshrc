@@ -49,13 +49,14 @@ fpath=(~/.zsh/completion $fpath)
 export GOPATH=$HOME/golang
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:~/.vimpkg/bin
+export PATH="$PATH:/opt/yarn-[version]/bin"
 
 # Alias
 alias gitk='gitk --all HEAD &'
 alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias k8='kubectl'
-alias mkvenv='mkvirtualenv -p /bin/python3'
+alias mkvenv='mkvirtualenv -p /usr/local/bin/python3.7'
 
 # NPM
 export PATH="$HOME/.npm-packages/bin:$PATH"
@@ -90,3 +91,6 @@ source <(helm completion zsh)
 source <(kompose completion zsh)
 
 [ -z "$TMUX" ] && exec tmux
+
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
