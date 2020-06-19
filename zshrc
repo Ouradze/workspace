@@ -56,7 +56,7 @@ alias gitk='gitk --all HEAD &'
 alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias k8='kubectl'
-alias mkvenv='mkvirtualenv -p /usr/local/bin/python3.7'
+alias mkvenv='mkvirtualenv -p $(pyenv which python3)'
 
 # NPM
 export PATH="$HOME/.npm-packages/bin:$PATH"
@@ -81,6 +81,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
 # Zsh poetry completion
 fpath+=~/.zfunc
 export PATH="$HOME/.poetry/bin:$PATH"
@@ -92,5 +95,6 @@ source <(kompose completion zsh)
 
 [ -z "$TMUX" ] && exec tmux
 
+eval "$(pyenv init -)"
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i

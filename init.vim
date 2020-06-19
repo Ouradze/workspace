@@ -40,6 +40,8 @@ call plug#begin("~/.vim/plugged")
     " Linting
     Plug 'psf/black'
     Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'dart-lang/dart-vim-plugin'
+    Plug 'mustache/vim-mustache-handlebars'
 
     " Workflow
     Plug 'sjl/gundo.vim', {'on': 'GundoShow'}
