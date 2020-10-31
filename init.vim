@@ -38,7 +38,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'mg979/vim-visual-multi'
 
     " Linting
-    Plug 'psf/black'
+    " Plug 'psf/black', { 'branch': 'stable' }
+    Plug 'psf/black', { 'tag': '19.10b0' }
     Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'dart-lang/dart-vim-plugin'
     Plug 'mustache/vim-mustache-handlebars'
@@ -262,6 +263,13 @@ function! s:ResCur()
         return 1
     endif
 endfunction
+function s:MyRustSettings()
+    setlocal shiftwidth=2
+    setlocal tabstop=2
+    setlocal softtabstop=2
+    setlocal conceallevel=0
+    let g:ale_linters = {'rust': ['analyzer']}
+endfunction
 function s:MyJavascriptSettings()
     setlocal shiftwidth=2
     setlocal tabstop=2
@@ -305,6 +313,7 @@ augroup FileTypes
     autocmd FileType css            set omnifunc=csscomplete#CompleteCSS
     autocmd FileType tex,plaintex   call s:MyTexSettings()
     autocmd FileType html           call s:MyHTMLSettings()
+    autocmd FileType rust           call s:MyRustSettings()
 augroup END
 augroup resCur
     autocmd!

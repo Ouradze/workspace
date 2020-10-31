@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
@@ -31,8 +32,8 @@ source $ZSH/oh-my-zsh.sh
 # Virtualenv folder
 export WORKON_HOME=$HOME/dev/.virtualenv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_SCRIPT=~/.local/bin/virtualenvwrapper.sh
-source ~/.local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_SCRIPT=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 # export configuration for postgres
 export PGUSER=postgres
@@ -57,6 +58,10 @@ alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias k8='kubectl'
 alias mkvenv='mkvirtualenv -p $(pyenv which python3)'
+alias gbrm="gb -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
+alias mkctl="microk8s kubectl"
+alias clean_volume="$(docker rm $(docker ps -aq) && docker volume rm $(docker volume ls --filter dangling=true -q))"
+alias gcln="git remote prune origin && git branch -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
 
 # NPM
 export PATH="$HOME/.npm-packages/bin:$PATH"
@@ -83,6 +88,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+export $(egrep -v '^#' ~/.tokens.ini | xargs)
 
 # Zsh poetry completion
 fpath+=~/.zfunc
@@ -92,6 +98,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 source <(helm completion zsh)
 source <(kompose completion zsh)
+source $HOME/.cargo/env
 
 [ -z "$TMUX" ] && exec tmux
 

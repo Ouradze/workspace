@@ -51,7 +51,6 @@ dependencies() {
         fonts-powerline \
         curl \
         python3-pip \
-        python-pip \
         virtualenvwrapper \
         gettext \
         htop \
@@ -105,10 +104,8 @@ dependencies() {
 node_setup() {
     echo "Settings up node"
     mkdir ~/.nvm
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
     nvm install 12.4
-    # diff so fancy
-    npm install -g diff-so-fancy
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     # avoid node install as we ue nvm
@@ -143,7 +140,7 @@ devops() {
     echo "Setting up docker compose"
     sudo rm /usr/local/bin/docker-compose
     pip3 uninstall docker-compose
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     docker-compose --version
 }
@@ -186,8 +183,8 @@ dev_tools() {
     # diff so fancy
     npm install -g diff-so-fancy
     # install poetry package manager
-    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-
+    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 }
 
 while getopts ":ht" opt; do
