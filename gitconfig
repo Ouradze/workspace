@@ -45,10 +45,10 @@
 [rebase]
 	autoStash = true
 [user]
-	email = me.raddadi@gmail.com
+	email = mehdi.raddadi@invenis.co
 	name = Ouradze
 [core]
-    editor = vi
+    editor = nvim
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [color "diff-highlight"]
 	oldNormal = red bold
@@ -58,4 +58,4 @@
 [cola]
 	spellcheck = false
 [gui]
-	editor = vi
+	editor = nvim

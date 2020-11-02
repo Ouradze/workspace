@@ -36,9 +36,10 @@ call plug#begin("~/.vim/plugged")
     Plug 'Rykka/InstantRst'
     Plug 'cespare/vim-toml'
     Plug 'mg979/vim-visual-multi'
+    Plug 'lepture/vim-jinja'
 
     " Linting
-    Plug 'psf/black'
+    Plug 'psf/black', { 'tag': '19.10b0'}
     Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'dart-lang/dart-vim-plugin'
     Plug 'mustache/vim-mustache-handlebars'

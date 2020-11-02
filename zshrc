@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -48,15 +45,20 @@ fpath=(~/.zsh/completion $fpath)
 # Go path for compilation
 export GOPATH=$HOME/golang
 
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:~/.vimpkg/bin
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:~/.vimpkg/bin"
 export PATH="$PATH:/opt/yarn-[version]/bin"
 
 # Alias
 alias gitk='gitk --all HEAD &'
 alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
-alias k8='kubectl'
 alias mkvenv='mkvirtualenv -p $(pyenv which python3)'
+alias lock="convert ~/Pictures/wallhaven-kwd36d.jpg -resize $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/') RGB:- | i3lock -k --raw $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'):rgb --image /dev/stdin"
+alias gbrm="gb -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
+alias kubectl="microk8s kubectl"
+#alias clean_volume=`$(docker rm $(docker ps -aq) && docker volume rm $(docker volume ls --filter dangling=true -q))`
+alias gcln="git remote prune origin && git branch -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
+alias helm="microk8s helm3"
 
 # NPM
 export PATH="$HOME/.npm-packages/bin:$PATH"
@@ -66,15 +68,9 @@ export PATH="$HOME/.npm-packages/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 
 # repo
-export PATH=~/bin:$PATH
-
-#if [[ -r ~/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh ]]; then
-#    source ~/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
-#fi
+export PATH="~/bin:$PATH"
 
 DISABLE_AUTO_TITLE=true
-
-export BLEASE_SRC_DIR=$HOME/poly-release
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -93,7 +89,15 @@ export PATH="$HOME/.poetry/bin:$PATH"
 source <(helm completion zsh)
 source <(kompose completion zsh)
 
-[ -z "$TMUX" ] && exec tmux
+# invenis
+# export $(egrep -v '^#' ~/.tokens.ini | xargs)
+
+rlk () {
+        git checkout --theirs poetry.lock
+        git unstage poetry.lock
+        git checkout -- poetry.lock
+        poetry lock
+}
 
 eval "$(pyenv init -)"
 fpath=(~/.zsh/completion $fpath)
