@@ -74,8 +74,6 @@ export PATH=~/bin:$PATH
 
 DISABLE_AUTO_TITLE=true
 
-export BLEASE_SRC_DIR=$HOME/poly-release
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -92,8 +90,6 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 source <(helm completion zsh)
 source <(kompose completion zsh)
-
-[ -z "$TMUX" ] && exec tmux
 
 eval "$(pyenv init -)"
 fpath=(~/.zsh/completion $fpath)
