@@ -57,6 +57,11 @@ alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias k8='kubectl'
 alias mkvenv='mkvirtualenv -p $(pyenv which python3)'
+alias lock="convert ~/Pictures/wallhaven-kwd36d.jpg -resize $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/') RGB:- | i3lock -k --raw $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'):rgb --image /dev/stdin"
+alias gbrm="gb -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
+alias mkctl="microk8s kubectl"
+#alias clean_volume="$(docker rm $(docker ps -aq) && docker volume rm $(docker volume ls --filter dangling=true -q))"
+alias gcln="git remote prune origin && git branch -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
 
 # NPM
 export PATH="$HOME/.npm-packages/bin:$PATH"
@@ -90,6 +95,16 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 source <(helm completion zsh)
 source <(kompose completion zsh)
+
+export $(egrep -v '^#' ~/.tokens.ini | xargs)
+
+export SSH_AUTH_SOCK="${HOME}/.cache/ssh/agent.sock"
+
+#if [[ $(ps x 2> /dev/null | grep -v '<defunct>' | grep ssh-agent -c) -ne 2 ]]; then
+    #[[ -e ${SSH_AUTH_SOCK} ]] && rm ${SSH_AUTH_SOCK} || true
+    #mkdir -p $(dirname ${SSH_AUTH_SOCK})
+    #ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+#fi
 
 eval "$(pyenv init -)"
 fpath=(~/.zsh/completion $fpath)

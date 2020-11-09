@@ -1,5 +1,5 @@
 install_system_dependencies() {
-    yay -Sy neovim visual-studio-code-bin tmux python-powerline-git bat tk docker snapd powerline-fonts-git \
+    yay -Sy neovim visual-studio-code-bin tmux python-powerline-git bat tk docker snapd powerline-fonts-git arandr python-pyopenssl libffi rxvt-unicode urxvt-perls wget i3lock-color-git \
     && pip install virtualenvwrapper black
 }
 
@@ -9,23 +9,30 @@ git_configuration() {
     && ln -s $(pwd)/gitconfig ~/.gitconfig
 }
 
+awesome_configuration() {
+    echo "Adding awesome configuration..."
+    rm -rf ~/.config/awesome/rc.lua \
+    rm -rf ~/.config/awesome/autorun.sh \
+    && ln -s $(pwd)/rc.lua ~/.config/awesome/rc.lua \
+    && ln -s $(pwd)/autorun.sh ~/.config/awesome/autorun.sh
+}
+
+
 installed() {
     #git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     echo "Setting up Helm"
-    curl -LO https://git.io/get_helm.sh
-    chmod 700 get_helm.sh
-    ./get_helm.sh
-    rm get_helm.sh
+    sudo snap install helm --classic
      
     echo "Settings up Kompose"
     rm -rf /user/local/kompose
-    curl -L https://github.com/kubernetes/kompose/releases/download/v1.18.0/kompose-linux-amd64 -o kompose
+    curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-linux-amd64 -o kompose
     chmod +x kompose
     sudo mv ./kompose /usr/local/bin/kompose
 
     sudo groupadd docker
     sudo usermod -aG docker $USER
     sudo systemctl enable docker
+    sudo usermod -aG microk8s $USER
 }
 
 setup_tmux() {
@@ -102,6 +109,7 @@ dev_tools() {
 
 }
 
+awesome_configuration
 #install_oh_my_zsh
 #install
 #setup_neovim
