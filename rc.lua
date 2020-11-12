@@ -51,13 +51,8 @@ end
 -- {{{ Autostart windowless processes
 
 -- This function will run once every time Awesome is started
-local function run_once(cmd_arr)
-    for _, cmd in ipairs(cmd_arr) do
-        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
-    end
-end
-
-run_once({ "urxvtd", "unclutter -root", "nm-applet" , "blueman-applet", "setxkbmap -option ctrl:nocaps"}) -- entries must be separated by commas
+awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+--run_once({ "urxvtd", "unclutter -root", "nm-applet" , "blueman-applet", "setxkbmap -option ctrl:nocaps"}) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -95,7 +90,8 @@ local cycle_prev   = true -- cycle trough all previous client or just the first 
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
 local browser      = os.getenv("BROWSER") or "firefox"
-local scrlocker    = "convert ~/Pictures/wallhaven-kwd36d.jpg -resize $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/') RGB:- | i3lock -k --raw $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'):rgb --image /dev/stdin"
+local scrlocker    = "light-locker-command -l"
+--local scrlocker    = "convert ~/Pictures/wallhaven-kwd36d.jpg -resize $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/') RGB:- | i3lock -k --raw $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'):rgb --image /dev/stdin"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }

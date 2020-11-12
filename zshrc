@@ -98,7 +98,7 @@ source <(kompose completion zsh)
 
 export $(egrep -v '^#' ~/.tokens.ini | xargs)
 
-export SSH_AUTH_SOCK="${HOME}/.cache/ssh/agent.sock"
+#export SSH_AUTH_SOCK="${HOME}/.cache/ssh/agent.sock"
 
 #if [[ $(ps x 2> /dev/null | grep -v '<defunct>' | grep ssh-agent -c) -ne 2 ]]; then
     #[[ -e ${SSH_AUTH_SOCK} ]] && rm ${SSH_AUTH_SOCK} || true
@@ -106,6 +106,7 @@ export SSH_AUTH_SOCK="${HOME}/.cache/ssh/agent.sock"
     #ssh-agent -a $SSH_AUTH_SOCK > /dev/null
 #fi
 
+eval $(gnome-keyring-daemon -s)
 eval "$(pyenv init -)"
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i

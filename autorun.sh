@@ -24,10 +24,11 @@ fi
 run xfsettingsd
 run nm-applet
 run light-locker
-run xcape -e 'Super_L=Super_L|Control_L|Escape'
-run thunar --daemon
+#run thunar --daemon
 run pa-applet
-run pamac-tray
+#run pamac-tray
+run unclutter -root
+run setxkbmap -option ctrl:nocaps
 
 ## The following are not included in minimal edition by default
 ## but autorun.sh will pick them up if you install them
@@ -36,6 +37,6 @@ if (command -v system-config-printer-applet && ! pgrep applet.py ); then
   system-config-printer-applet &
 fi
 
-run compton --shadow-exclude '!focused'
+#run compton --shadow-exclude '!focused'
 run blueman-applet
-run msm_notifier
+#run msm_notifier

@@ -1,5 +1,5 @@
 install_system_dependencies() {
-    yay -Sy neovim visual-studio-code-bin tmux python-powerline-git bat tk docker snapd powerline-fonts-git arandr python-pyopenssl libffi rxvt-unicode urxvt-perls wget i3lock-color-git \
+    yay -Sy neovim visual-studio-code-bin tmux python-powerline-git bat tk docker snapd powerline-fonts-git arandr python-pyopenssl libffi rxvt-unicode urxvt-perls wget i3lock-color-git nerd-fonts-dejavu-complete \
     && pip install virtualenvwrapper black
 }
 
