@@ -62,6 +62,7 @@ alias gbrm="gb -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git b
 alias mkctl="microk8s kubectl"
 #alias clean_volume="$(docker rm $(docker ps -aq) && docker volume rm $(docker volume ls --filter dangling=true -q))"
 alias gcln="git remote prune origin && git branch -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
+alias mkhelm="microk8s helm3"
 
 # NPM
 export PATH="$HOME/.npm-packages/bin:$PATH"
@@ -105,6 +106,13 @@ export $(egrep -v '^#' ~/.tokens.ini | xargs)
     #mkdir -p $(dirname ${SSH_AUTH_SOCK})
     #ssh-agent -a $SSH_AUTH_SOCK > /dev/null
 #fi
+
+rlk () {
+        git checkout --theirs poetry.lock
+        git unstage poetry.lock
+        git checkout -- poetry.lock
+        poetry lock
+}
 
 eval $(gnome-keyring-daemon -s)
 eval "$(pyenv init -)"

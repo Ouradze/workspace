@@ -26,7 +26,7 @@ run nm-applet
 run light-locker
 #run thunar --daemon
 run pa-applet
-#run pamac-tray
+run pamac-tray
 run unclutter -root
 run setxkbmap -option ctrl:nocaps
 

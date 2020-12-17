@@ -36,6 +36,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'Rykka/InstantRst'
     Plug 'cespare/vim-toml'
     Plug 'mg979/vim-visual-multi'
+    Plug 'lepture/vim-jinja'
 
     " Linting
     Plug 'psf/black', { 'tag': '19.10b0'}
