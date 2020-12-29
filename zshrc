@@ -53,7 +53,6 @@ alias gitk='gitk --all HEAD &'
 alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias mkvenv='mkvirtualenv -p $(pyenv which python3)'
-alias lock="convert ~/Pictures/wallhaven-kwd36d.jpg -resize $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/') RGB:- | i3lock -k --raw $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'):rgb --image /dev/stdin"
 alias gbrm="gb -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
 alias kubectl="microk8s kubectl"
 #alias clean_volume=`$(docker rm $(docker ps -aq) && docker volume rm $(docker volume ls --filter dangling=true -q))`
@@ -68,7 +67,6 @@ export PATH="$HOME/.npm-packages/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 
 # repo
-export PATH="~/bin:$PATH"
 
 DISABLE_AUTO_TITLE=true
 
@@ -83,6 +81,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # Zsh poetry completion
 fpath+=~/.zfunc
 export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 . ~/z.sh
 
