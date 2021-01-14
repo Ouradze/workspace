@@ -21,15 +21,8 @@ plugins=(
     npm
     z
 )
-#virtualenvwrapper
 
 source $ZSH/oh-my-zsh.sh
-
-# Virtualenv folder
-export WORKON_HOME=$HOME/dev/.virtualenv
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_SCRIPT=~/.local/bin/virtualenvwrapper.sh
-source ~/.local/bin/virtualenvwrapper.sh
 
 # export configuration for postgres
 export PGUSER=postgres
@@ -54,10 +47,10 @@ alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias mkvenv='mkvirtualenv -p $(pyenv which python3)'
 alias gbrm="gb -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
-alias kubectl="microk8s kubectl"
+alias mkctl="microk8s kubectl"
 #alias clean_volume=`$(docker rm $(docker ps -aq) && docker volume rm $(docker volume ls --filter dangling=true -q))`
 alias gcln="git remote prune origin && git branch -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
-alias helm="microk8s helm3"
+alias mkhelm="microk8s helm3"
 
 # NPM
 export PATH="$HOME/.npm-packages/bin:$PATH"
@@ -81,7 +74,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # Zsh poetry completion
 fpath+=~/.zfunc
 export PATH="$HOME/.poetry/bin:$PATH"
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:/opt/sbt/bin:$PATH"
 
 . ~/z.sh
 

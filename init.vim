@@ -136,6 +136,14 @@ endfunction
 function! s:Colorscheme()
     " One dark theme
     "set antialias
+    "let g:onedark_color_overrides = {
+    "\ "black": {"gui": "#080808", "cterm": "232", "cterm16": "0" },
+    "\ "white": {"gui": "#eeeeee", "cterm": "254", "cterm16": "0" },
+    "\ "purple": {"gui": "#FFFFFF", "cterm": "165", "cterm16": "0" },
+    "\ "blue": {"gui": "#FFFFFF", "cterm": "27", "cterm16": "0" },
+    "\ "green": {"gui": "#FFFFFF", "cterm": "29", "cterm16": "0" },
+    "\ "red": {"gui": "#FFFFFF", "cterm": "160", "cterm16": "0" },
+    "\}
     let g:onedark_termcolors = 256
     let g:onedark_terminal_italics = 1
     colorscheme onedark
