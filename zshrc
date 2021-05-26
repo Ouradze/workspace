@@ -1,4 +1,5 @@
 # Path to your oh-my-zsh installation.
+# autoload -Uz compinit && compinit -i
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
@@ -19,7 +20,6 @@ plugins=(
     systemd
     node
     npm
-    z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -47,10 +47,9 @@ alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias mkvenv='mkvirtualenv -p $(pyenv which python3)'
 alias gbrm="gb -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
-alias mkctl="microk8s kubectl"
 #alias clean_volume=`$(docker rm $(docker ps -aq) && docker volume rm $(docker volume ls --filter dangling=true -q))`
 alias gcln="git remote prune origin && git branch -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
-alias mkhelm="microk8s helm3"
+alias k="kubectl"
 
 # NPM
 export PATH="$HOME/.npm-packages/bin:$PATH"
@@ -76,13 +75,18 @@ fpath+=~/.zfunc
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/bin:/opt/sbt/bin:$PATH"
 
-. ~/z.sh
-
 source <(helm completion zsh)
 source <(kompose completion zsh)
+source <(k3d completion zsh)
+source <(kubectl completion zsh)
 
 # invenis
-# export $(egrep -v '^#' ~/.tokens.ini | xargs)
+export $(egrep -v '^#' ~/.tokens.ini | xargs)
+
+# krew
+export PATH="$HOME/.krew/bin:$PATH"
+# kustomize
+export PATH="$HOME/.local/bin:$PATH"
 
 rlk () {
         git checkout --theirs poetry.lock
@@ -90,7 +94,13 @@ rlk () {
         git checkout -- poetry.lock
         poetry lock
 }
+eval "$(pyenv init --path)"
+eval "$(zoxide init zsh)"
 
-eval "$(pyenv init -)"
 fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
+
+# alias ls = "exa"
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/ouradze/.sdkman"
+complete -F __start_kubectl k
+[[ -s "/home/ouradze/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ouradze/.sdkman/bin/sdkman-init.sh"

@@ -1,13 +1,15 @@
 install_packet_manager() {
+    sudo pacman -S base-devel
     git clone https://aur.archlinux.org/yay.git
     cd yay
-    sudo pacman -U https://archive.archlinux.org/packages/g/go/go-2:1.14.7-1-x86_64.pkg.tar.zst
     makepkg -si
 }
 
 install_system_dependencies() {
-    yay -Sy neovim visual-studio-code-bin tmux python-powerline-git bat tk docker snapd powerline-fonts-git arandr python-pyopenssl libffi rxvt-unicode urxvt-perls wget i3lock-color-git nerd-fonts-dejavu-complete lefthook deezer git-cola steam \
+    yay -Sy neovim-git rancher-k3d-bin kubectl python-gdal syncthing-gtk dnsutils visual-studio-code-bin netplan tmux devspace-bin python-powerline-git bat tk docker snapd powerline-fonts-git python-pyopenssl libffi rxvt-unicode urxvt-perls wget nerd-fonts-dejavu-complete lefthook deezer git-cola steam  slack discord ripgrep exa fd terraform \
+    && yay -Sy choose-rust-git zoxide-bin the_silver_searcher sd gping
     && pip install virtualenvwrapper black
+    # && npm install gtop -g
 }
 
 git_configuration() {
@@ -37,10 +39,7 @@ setup_neovim() {
     && rm -rf ~/.fzf ~/.config/nvim\
     && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
     && ~/.fzf/install \
-    && mkdir ~/.config/nvim \
-    && ln -s $(pwd)/init.vim ~/.config/nvim/init.vim \
-    && curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
-    && nvim +PlugInstall +qall 
+	&& bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/lunarvim/master/utils/installer/install.sh)
 }
 
 install_oh_my_zsh() {
@@ -51,8 +50,6 @@ install_oh_my_zsh() {
     && chsh -s /bin/zsh \
     && git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k \
     && mkdir -p ~/.oh-my-zsh/custom/themes \
-    && rm -rf ~/z.sh \
-    && curl -fLo ~/z.sh https://raw.githubusercontent.com/rupa/z/master/z.sh
 }
 
 node_setup() {
@@ -65,8 +62,7 @@ node_setup() {
 
 dev_tools() {
     echo "Setting up dev tools..."
-    export POETRY_VERSION=1.0.9
-    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python -
 
     echo "Setting up pyenv"
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
@@ -83,11 +79,6 @@ dev_tools() {
     sudo groupadd docker
     sudo usermod -aG docker $USER
     sudo systemctl enable docker
-    echo "Setting up microk8s"
-    sudo snap install microk8s --classic --channel=1.19
-    sudo groupadd microk8s
-    sudo usermod -aG microk8s $USER
-    microk8s enable helm3
 
     echo "Setting up docker compose"
     sudo rm /usr/local/bin/docker-compose
@@ -99,9 +90,39 @@ dev_tools() {
     echo "Installing ssh-ident"
     mkdir -p ~/bin; wget -O ~/bin/ssh goo.gl/MoJuKB; chmod 0755 ~/bin/ssh
 
-    echo "Setting up kubctl"
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    # echo "Setting up kubctl"
+    # curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    # sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    
+    echo "Setting up krew"
+    (
+        set -x; cd "$(mktemp -d)" &&
+        OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+        ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e \
+        's/aarch64$/arm64/')" &&
+        curl -fsSLO \
+        "https://github.com/kubernetes-sigs/\
+        krew/releases/latest/download/krew.tar.gz" &&
+        tar zxvf krew.tar.gz &&
+        KREW=./krew-"${OS}_${ARCH}" &&
+        "$KREW" install krew
+    )
+
+    kubectl krew update
+    kubectl krew upgrade
+
+    echo "Setting up kustomize"
+    curl -s \
+    "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/\
+    master/hack/install_kustomize.sh" \
+    | bash
+    mkdir $HOME/.local/bin
+    mv $HOME/kustomize $HOME/.local/bin/kustomize
+
+    echo "Setting up kube score"
+    kubectl krew install score
+
+    git clone git@github.com:rupa/z.git ~/z
 }
 
 #awesome_configuration
@@ -112,4 +133,12 @@ dev_tools() {
 #dev_tools
 #node_setup
 
-install
+#install
+#setup_neovim
+#install_packet_manager
+#install_system_dependencies
+#git_configuration
+#setup_neovim
+#node_setup
+#dev_tools
+install_oh_my_zsh

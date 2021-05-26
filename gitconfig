@@ -43,9 +43,10 @@
 [branch]
     autosetuprebase = always
 [rebase]
-	autoStash = true
+	autostash = true
+    autosquash = true
 [user]
-	email = mehdi.raddadi@invenis.co
+	email = me.raddadi@gmail.com
 	name = Ouradze
 [core]
     editor = nvim
