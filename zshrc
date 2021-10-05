@@ -75,11 +75,12 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 fpath+=~/.zfunc
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/bin:/opt/sbt/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 source <(helm completion zsh)
-source <(kompose completion zsh)
 source <(k3d completion zsh)
 source <(kubectl completion zsh)
+source "$HOME/.profile"
 
 # krew
 export PATH="$HOME/.krew/bin:$PATH"
