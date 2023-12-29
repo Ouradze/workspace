@@ -39,17 +39,18 @@ setup_neovim() {
     && rm -rf ~/.fzf ~/.config/nvim\
     && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
     && ~/.fzf/install \
-	&& bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/lunarvim/master/utils/installer/install.sh)
+	&& bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 }
 
 install_oh_my_zsh() {
     echo "Setting up zsh..." \
-    && rm -rf ~/.zshrc ~/.oh-my-zsh \
     && ln -s $(pwd)/zshrc ~/.zshrc \
-    && git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
+    && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    && rm -rf ~/.zshrc ~/.oh-my-zsh \
     && chsh -s /bin/zsh \
-    && git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k \
     && mkdir -p ~/.oh-my-zsh/custom/themes \
+    && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k \
+    && git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
 }
 
 node_setup() {
@@ -62,7 +63,7 @@ node_setup() {
 
 dev_tools() {
     echo "Setting up dev tools..."
-    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python -
+    curl -sSL https://install.python-poetry.org | python3 -
 
     echo "Setting up pyenv"
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
@@ -90,10 +91,6 @@ dev_tools() {
     echo "Installing ssh-ident"
     mkdir -p ~/bin; wget -O ~/bin/ssh goo.gl/MoJuKB; chmod 0755 ~/bin/ssh
 
-    # echo "Setting up kubctl"
-    # curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    # sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-    
     echo "Setting up krew"
     (
         set -x; cd "$(mktemp -d)" &&
@@ -125,20 +122,10 @@ dev_tools() {
     git clone git@github.com:rupa/z.git ~/z
 }
 
-#awesome_configuration
-#install_system_dependencies
-#setup_neovim
-#git_configuration
-#install_oh_my_zsh
-#dev_tools
-#node_setup
-
-#install
-#setup_neovim
-#install_packet_manager
-#install_system_dependencies
-#git_configuration
-#setup_neovim
-#node_setup
-#dev_tools
+install_packet_manager
+install_system_dependencies
+git_configuration
+setup_neovim
 install_oh_my_zsh
+node_setup
+dev_tools

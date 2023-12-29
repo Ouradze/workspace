@@ -2,7 +2,7 @@
 # autoload -Uz compinit && compinit -i
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir_writable dir rbenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status virtualenv root_indicator background_jobs history time)
@@ -12,7 +12,6 @@ POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 plugins=(
     git
     common-aliases
-    django
     git-extras
     jsontools
     pip
@@ -20,6 +19,8 @@ plugins=(
     systemd
     node
     npm
+    fzf
+    fzf-tab
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -39,7 +40,7 @@ fpath=(~/.zsh/completion $fpath)
 export GOPATH=$HOME/golang
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:~/.vimpkg/bin"
-export PATH="$PATH:/opt/yarn-[version]/bin"
+export PATH="$PATH:/opt/yarn-[version]/bin:$HOME/.rustup/bin:$HOME/.cargo/bin"
 
 # Alias
 alias gitk='gitk --all HEAD &'
@@ -80,9 +81,6 @@ source <(kompose completion zsh)
 source <(k3d completion zsh)
 source <(kubectl completion zsh)
 
-# invenis
-export $(egrep -v '^#' ~/.tokens.ini | xargs)
-
 # krew
 export PATH="$HOME/.krew/bin:$PATH"
 # kustomize
@@ -98,6 +96,8 @@ eval "$(pyenv init --path)"
 eval "$(zoxide init zsh)"
 
 fpath=(~/.zsh/completion $fpath)
+
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # alias ls = "exa"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
