@@ -105,3 +105,5 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export SDKMAN_DIR="/home/ouradze/.sdkman"
 complete -F __start_kubectl k
 [[ -s "/home/ouradze/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ouradze/.sdkman/bin/sdkman-init.sh"
+
+. "$HOME/.cargo/env"

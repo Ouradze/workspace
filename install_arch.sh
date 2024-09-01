@@ -56,17 +56,18 @@ install_oh_my_zsh() {
 node_setup() {
     echo "Settings up node"
     mkdir ~/.nvm
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
-    nvm install 12.4
-    npm install -g diff-so-fancy yarn
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    nvm install --lts
+    npm install -g diff-so-fancy corepack
+    corepack enable
+    yarn set version stable
 }
 
 dev_tools() {
     echo "Setting up dev tools..."
-    curl -sSL https://install.python-poetry.org | python3 -
 
-    echo "Setting up pyenv"
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    echo "Setting up uv"
+    curl -LsSf https://astral.sh/uv/install.sh | sh
     echo "Setting up Helm"
     sudo snap install helm --classic
      
