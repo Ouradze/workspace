@@ -46,7 +46,6 @@ export PATH="$PATH:/opt/yarn-[version]/bin:$HOME/.rustup/bin:$HOME/.cargo/bin"
 alias gitk='gitk --all HEAD &'
 alias vi='nvim'
 alias docker_stop_all='docker stop $(docker ps -a -q)'
-alias mkvenv='mkvirtualenv -p $(pyenv which python3)'
 alias gbrm="gb -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
 #alias clean_volume=`$(docker rm $(docker ps -aq) && docker volume rm $(docker volume ls --filter dangling=true -q))`
 alias gcln="git remote prune origin && git branch -v | grep gone | sed 's/^+ /  /' | awk '{print $1}' | xargs git branch -D"
@@ -67,9 +66,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Zsh poetry completion
 fpath+=~/.zfunc
@@ -93,7 +89,6 @@ rlk () {
         git checkout -- poetry.lock
         poetry lock
 }
-eval "$(pyenv init --path)"
 eval "$(zoxide init zsh)"
 
 fpath=(~/.zsh/completion $fpath)
@@ -105,5 +100,9 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export SDKMAN_DIR="/home/ouradze/.sdkman"
 complete -F __start_kubectl k
 [[ -s "/home/ouradze/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ouradze/.sdkman/bin/sdkman-init.sh"
+
+export JAVA_HOME=/opt/android-studio/jbr
+export ANDROID_HOME="$HOME/Android/Sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 
 . "$HOME/.cargo/env"
