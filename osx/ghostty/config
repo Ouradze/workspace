@@ -1,0 +1,10 @@
+theme = TokyoNight Night
+
+keybind = global:cmd+z=toggle_quick_terminal
+
+background-blur-radius = 20
+mouse-hide-while-typing = true
+window-decoration = true
+
+# laisse macOS gérer Option normalement
+macos-option-as-alt = false
